@@ -28,12 +28,11 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN \
-    if [ -f yarn.lock ]; then yarn run build; \
-    elif [ -f package-lock.json ]; then npm run build; \
-    elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
-    else echo "Lockfile not found." && exit 1; \
-    fi
+RUN npm config set registry https://registry.npmmirror.com
+
+RUN npm i -g pnpm
+
+RUN pnpm i --frozen-lockfile
 
 # Production image, copy all the files and run next
 FROM base AS runner
