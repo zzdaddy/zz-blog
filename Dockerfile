@@ -32,7 +32,7 @@ RUN npm config set registry https://registry.npmmirror.com
 
 RUN npm i -g pnpm
 
-RUN pnpm i --frozen-lockfile
+RUN pnpm build
 
 # Production image, copy all the files and run next
 FROM base AS runner
