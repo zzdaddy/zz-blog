@@ -21,7 +21,7 @@ export default function Home({ posts }) {
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
           {posts.slice(0, MAX_DISPLAY).map((post) => {
-            const { slug, date, published, title, summary, description, tags, showDate, desc } = post
+            const { slug,  title, tags, showDate, desc } = post
             return (
               <li key={slug} className="py-6">
                 <article>
@@ -50,7 +50,7 @@ export default function Home({ posts }) {
                           </div>
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                          { desc }
+                          {desc}
                         </div>
                       </div>
                       <div className="text-base font-medium leading-6">
