@@ -58,3 +58,7 @@ input:-webkit-autofill:focus {
   display: inline-block;
   vertical-align: middle;
 }
+
+.markdown-it-body .warning {
+    @apply bg-black text-white
+}

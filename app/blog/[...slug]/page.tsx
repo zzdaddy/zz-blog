@@ -36,9 +36,8 @@ export async function generateMetadata({
   if (!post) {
     return
   }
-
-  const publishedAt = new Date(post.date).toISOString()
-  const modifiedAt = new Date(post.lastmod || post.date).toISOString()
+  const publishedAt = new Date(post.showDate).toISOString()
+  const modifiedAt = new Date(post.lastmod || post.showDate).toISOString()
   const authors = authorDetails.map((author) => author.name)
   let imageList = [siteMetadata.socialBanner]
   if (post.images) {
@@ -52,12 +51,12 @@ export async function generateMetadata({
 
   return {
     title: post.title,
-    description: post.summary,
+    description: post.summary || post.description,
     openGraph: {
       title: post.title,
-      description: post.summary,
+      description: post.summary || post.description,
       siteName: siteMetadata.title,
-      locale: 'en_US',
+      locale: 'zh_CN',
       type: 'article',
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
@@ -68,7 +67,7 @@ export async function generateMetadata({
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.summary,
+      description: post.summary || post.description,
       images: imageList,
     },
   }
@@ -96,6 +95,8 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     return coreContent(authorResults as Authors)
   })
   const mainContent = coreContent(post)
+  
+
   const jsonLd = post.structuredData
   jsonLd['author'] = authorDetails.map((author) => {
     return {
